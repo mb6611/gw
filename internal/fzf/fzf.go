@@ -27,7 +27,6 @@ func Pick(worktrees []worktree.Worktree, currentPath string, prompt string) (str
 
 	// Format worktrees for display
 	var lines []string
-	pathMap := make(map[string]string) // display line -> path
 
 	for _, wt := range worktrees {
 		if wt.Bare {
@@ -44,7 +43,6 @@ func Pick(worktrees []worktree.Worktree, currentPath string, prompt string) (str
 		// Format: "* branch-name  → /path/to/worktree (current)"
 		display := fmt.Sprintf("%s%-20s → %s%s", marker, wt.Branch, wt.Path, suffix)
 		lines = append(lines, display)
-		pathMap[display] = wt.Path
 	}
 
 	if len(lines) == 0 {
@@ -77,10 +75,15 @@ func Pick(worktrees []worktree.Worktree, currentPath string, prompt string) (str
 		return "", ErrCancelled
 	}
 
-	path, ok := pathMap[selected]
-	if !ok {
-		return "", fmt.Errorf("unexpected selection: %s", selected)
+	// Extract path from selection by parsing after "→"
+	parts := strings.SplitN(selected, "→", 2)
+	if len(parts) != 2 {
+		return "", fmt.Errorf("unexpected selection format: %s", selected)
 	}
+
+	path := strings.TrimSpace(parts[1])
+	// Remove " (current)" suffix if present
+	path = strings.TrimSuffix(path, " (current)")
 
 	return path, nil
 }

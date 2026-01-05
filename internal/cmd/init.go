@@ -25,11 +25,10 @@ const zshInit = `gw() {
   fi
 
   local path=$(echo "$output" | head -1)
-  local launch_claude=$(echo "$output" | grep -q "__GW_LAUNCH_CLAUDE__" && echo "1")
 
   if [[ -d "$path" ]]; then
-    cd "$path"
-    [[ -n "$launch_claude" ]] && claude
+    builtin cd "$path"
+    [[ "$output" == *"__GW_LAUNCH_CLAUDE__"* ]] && claude
   elif [[ -n "$path" ]]; then
     echo "$path"
   fi
@@ -47,11 +46,10 @@ const fishInit = `function gw
   end
 
   set -l path (echo "$output" | head -1)
-  set -l launch_claude (echo "$output" | grep -q "__GW_LAUNCH_CLAUDE__" && echo "1")
 
   if test -d "$path"
     cd "$path"
-    test -n "$launch_claude" && claude
+    string match -q "*__GW_LAUNCH_CLAUDE__*" "$output" && claude
   else if test -n "$path"
     echo "$path"
   end
