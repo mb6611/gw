@@ -1,7 +1,7 @@
 class Gw < Formula
   desc "Git worktree manager with fzf integration"
-  homepage "https://github.com/1unoe/gw"
-  url "https://github.com/1unoe/gw/archive/refs/tags/v0.1.0.tar.gz"
+  homepage "https://github.com/mb6611/gw"
+  url "https://github.com/mb6611/gw/archive/refs/tags/v0.1.0.tar.gz"
   sha256 "PLACEHOLDER"
   license "MIT"
 

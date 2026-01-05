@@ -1,4 +1,4 @@
-module github.com/1unoe/gw
+module github.com/mb6611/gw
 
 go 1.22
 

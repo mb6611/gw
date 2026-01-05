@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/1unoe/gw/internal/worktree"
+	"github.com/mb6611/gw/internal/worktree"
 )
 
 // ErrCancelled is returned when the user cancels fzf selection (ESC)

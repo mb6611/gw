@@ -14,14 +14,14 @@ A fast git worktree manager with fzf integration, optimized for Claude Code sess
 ### Homebrew
 
 ```bash
-brew tap 1unoe/gw
+brew tap mb6611/gw
 brew install gw
 ```
 
 ### From source
 
 ```bash
-go install github.com/1unoe/gw/cmd/gw@latest
+go install github.com/mb6611/gw/cmd/gw@latest
 ```
 
 ### Shell integration

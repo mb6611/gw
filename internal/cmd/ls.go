@@ -3,7 +3,7 @@ package cmd
 import (
     "fmt"
 
-    "github.com/1unoe/gw/internal/worktree"
+    "github.com/mb6611/gw/internal/worktree"
     "github.com/spf13/cobra"
 )
 

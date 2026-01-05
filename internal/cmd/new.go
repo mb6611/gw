@@ -5,8 +5,8 @@ import (
     "os"
     "strings"
 
-    "github.com/1unoe/gw/internal/env"
-    "github.com/1unoe/gw/internal/worktree"
+    "github.com/mb6611/gw/internal/env"
+    "github.com/mb6611/gw/internal/worktree"
     "github.com/spf13/cobra"
 )
 
