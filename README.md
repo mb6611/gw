@@ -15,7 +15,7 @@ A fast git worktree manager with fzf integration, optimized for Claude Code sess
 
 ```bash
 brew tap mb6611/gw
-brew install gw
+brew install --HEAD gw
 ```
 
 ### From source
