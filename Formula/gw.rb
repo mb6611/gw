@@ -1,9 +1,8 @@
 class Gw < Formula
   desc "Git worktree manager with fzf integration"
   homepage "https://github.com/mb6611/gw"
-  url "https://github.com/mb6611/gw/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "PLACEHOLDER"
   license "MIT"
+  head "https://github.com/mb6611/gw.git", branch: "main"
 
   depends_on "go" => :build
   depends_on "fzf"
