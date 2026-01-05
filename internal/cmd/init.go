@@ -35,7 +35,11 @@ function gw() {
 
     if [[ -d "${target}" ]]; then
         __gw_cd "${target}"
-        [[ "${output}" == *"__GW_LAUNCH_CLAUDE__"* ]] && claude
+        if [[ "${output}" == *"__GW_LAUNCH_CLAUDE_DANGEROUS__"* ]]; then
+            claude --dangerously-skip-permissions
+        elif [[ "${output}" == *"__GW_LAUNCH_CLAUDE__"* ]]; then
+            claude
+        fi
     elif [[ -n "${target}" ]]; then
         \builtin printf '%s\n' "${target}"
     fi
@@ -52,13 +56,17 @@ const fishInit = `function gw
     return $exit_code
   end
 
-  set -l path (echo "$output" | head -1)
+  set -l target (echo "$output" | head -1)
 
-  if test -d "$path"
-    cd "$path"
-    string match -q "*__GW_LAUNCH_CLAUDE__*" "$output" && claude
-  else if test -n "$path"
-    echo "$path"
+  if test -d "$target"
+    cd "$target"
+    if string match -q "*__GW_LAUNCH_CLAUDE_DANGEROUS__*" "$output"
+      claude --dangerously-skip-permissions
+    else if string match -q "*__GW_LAUNCH_CLAUDE__*" "$output"
+      claude
+    end
+  else if test -n "$target"
+    echo "$target"
   end
 end`
 

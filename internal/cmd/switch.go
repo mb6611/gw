@@ -36,7 +36,9 @@ func runSwitch(cmd *cobra.Command, args []string) error {
     // Output path for shell function to cd
     fmt.Println(selected)
 
-    if ClaudeFlag {
+    if ClaudeDangerousFlag {
+        fmt.Println("__GW_LAUNCH_CLAUDE_DANGEROUS__")
+    } else if ClaudeFlag {
         fmt.Println("__GW_LAUNCH_CLAUDE__")
     }
 

@@ -8,6 +8,9 @@ import (
 // ClaudeFlag indicates whether to launch claude after switching
 var ClaudeFlag bool
 
+// ClaudeDangerousFlag indicates whether to launch claude with --dangerously-skip-permissions
+var ClaudeDangerousFlag bool
+
 var rootCmd = &cobra.Command{
     Use:   "gw",
     Short: "Git worktree manager with fzf",
@@ -22,6 +25,7 @@ func Execute() {
 
 func init() {
     rootCmd.PersistentFlags().BoolVarP(&ClaudeFlag, "claude", "c", false, "Launch claude after switching")
+    rootCmd.PersistentFlags().BoolVarP(&ClaudeDangerousFlag, "claude-dangerous", "d", false, "Launch claude with --dangerously-skip-permissions")
 
     rootCmd.AddCommand(newCmd)
     rootCmd.AddCommand(lsCmd)
