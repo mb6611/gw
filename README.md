@@ -14,7 +14,8 @@ A fast git worktree manager with fzf integration, optimized for Claude Code sess
 ### Homebrew
 
 ```bash
-brew install --HEAD https://raw.githubusercontent.com/mb6611/gw/main/Formula/gw.rb
+brew tap mb6611/gw
+brew install gw
 ```
 
 ### Go
