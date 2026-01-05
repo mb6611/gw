@@ -14,24 +14,31 @@ var initCmd = &cobra.Command{
 	RunE:  runInit,
 }
 
-const zshInit = `gw() {
-  local output exit_code
-  output=$(command gw "$@")
-  exit_code=$?
+const zshInit = `
+# gw - git worktree manager
+function __gw_cd() {
+    \builtin cd -- "$@"
+}
 
-  if [[ $exit_code -ne 0 ]]; then
-    [[ -n "$output" ]] && echo "$output"
-    return $exit_code
-  fi
+function gw() {
+    \builtin local output exit_code
+    output="$(\command gw "$@")"
+    exit_code="$?"
 
-  local path=$(echo "$output" | head -1)
+    if [[ "${exit_code}" -ne 0 ]]; then
+        [[ -n "${output}" ]] && \builtin printf '%s\n' "${output}"
+        return "${exit_code}"
+    fi
 
-  if [[ -d "$path" ]]; then
-    builtin cd "$path"
-    [[ "$output" == *"__GW_LAUNCH_CLAUDE__"* ]] && claude
-  elif [[ -n "$path" ]]; then
-    echo "$path"
-  fi
+    \builtin local target
+    target="${output%%$'\n'*}"
+
+    if [[ -d "${target}" ]]; then
+        __gw_cd "${target}"
+        [[ "${output}" == *"__GW_LAUNCH_CLAUDE__"* ]] && claude
+    elif [[ -n "${target}" ]]; then
+        \builtin printf '%s\n' "${target}"
+    fi
 }`
 
 const bashInit = zshInit // Same syntax works for bash
