@@ -1,0 +1,58 @@
+version: 2
+
+project_name: gw
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: gw
+    main: ./cmd/gw
+    binary: gw
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - id: gw
+    format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+
+brews:
+  - name: gw
+    repository:
+      owner: mb6611
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    directory: Formula
+    homepage: "https://github.com/mb6611/gw"
+    description: "Git worktree manager with fzf integration"
+    license: "MIT"
+    dependencies:
+      - name: fzf
+    install: |
+      bin.install "gw"
+    caveats: |
+      Add to your shell config:
+
+        eval "$(gw init zsh)"
+    test: |
+      system "#{bin}/gw", "--help"

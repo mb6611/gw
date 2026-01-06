@@ -17,6 +17,11 @@ var rootCmd = &cobra.Command{
     RunE:  runSwitch,
 }
 
+func SetVersion(v string) {
+    rootCmd.Version = v
+    rootCmd.SetVersionTemplate("gw version {{.Version}}\n")
+}
+
 func Execute() {
     if err := rootCmd.Execute(); err != nil {
         os.Exit(1)

@@ -37,8 +37,18 @@ Commands output a path on the first line. Optional markers on subsequent lines:
 - `__GW_LAUNCH_CLAUDE__` - Shell wrapper should run `claude`
 - `__GW_LAUNCH_CLAUDE_DANGEROUS__` - Shell wrapper should run `claude --dangerously-skip-permissions`
 
-## Homebrew Distribution
+## Releasing
 
-- Formula in `Formula/gw.rb` (also mirrored to `mb6611/homebrew-gw` tap repo)
-- Update both when releasing: change version URL and sha256
-- Get sha256: `curl -sL <tarball-url> | shasum -a 256`
+Releases are automated via GoReleaser. To release:
+
+```bash
+git tag v0.X.Y
+git push --tags
+```
+
+This triggers GitHub Actions which:
+1. Builds binaries for macOS/Linux (amd64/arm64)
+2. Creates a GitHub release with artifacts
+3. Updates the Homebrew formula in `mb6611/homebrew-tap`
+
+**Required secret**: `HOMEBREW_TAP_GITHUB_TOKEN` (PAT with `repo` scope) must be set in repo settings.
